@@ -1,0 +1,8 @@
+config BR2_PACKAGE_ZEROTIER
+	bool "zerotier"
+	help
+	  ZeroTierOne - A Smart Ethernet Switch for Earth
+	  https://www.zerotier.com/
+
+comment "zerotier needs a toolchain w/ C++"
+	depends on !BR2_TOOLCHAIN_BUILDROOT_CXX
