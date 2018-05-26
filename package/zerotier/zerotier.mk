@@ -22,4 +22,9 @@ define ZEROTIER_INSTALL_TARGET_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) DESTDIR=$(TARGET_DIR) -C $(@D) install
 endef
 
+define ZEROTIER_INSTALL_INIT_SYSV
+	$(INSTALL) -m 0755 -D package/zerotier/S99zerotier \
+		$(TARGET_DIR)/etc/init.d/S99zerotier
+endef
+
 $(eval $(generic-package))
