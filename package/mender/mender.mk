@@ -21,6 +21,8 @@ define MENDER_INSTALL_TARGET_CMDS
 		$(TARGET_DIR)/var/share/mender/inventory/mender-inventory-network
 	$(INSTALL) -D -m 0755 package/mender/mender-inventory-hostinfo \
 		$(TARGET_DIR)/var/share/mender/inventory/mender-inventory-hostinfo
+	$(INSTALL) -D -m 0755 $(@D)/bin/mender \
+		$(TARGET_DIR)/usr/bin/mender
 endef
 
 define MENDER_INSTALL_INIT_SYSTEMD
