@@ -31,4 +31,10 @@ define MENDER_INSTALL_INIT_SYSTEMD
 		$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/mender.service
 endef
 
+define MENDER_INSTALL_INIT_SYSV
+	$(INSTALL) -D -m 0755 package/mender/S99mender \
+		$(TARGET_DIR)/etc/init.d/S99mender
+endef
+
+
 $(eval $(golang-package))

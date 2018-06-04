@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# Starts Mender
+#
+
+BIN=/usr/bin/mender
+PIDFILE=/var/run/mender.pid
+
+start() {
+	printf "Starting mender: "
+	/bin/mkdir -p -m 0755 /data/mender
+	/bin/mkdir -p -m 0755 /var/lib/mender
+	/bin/ln -sf /etc/mender/tenant.conf /var/lib/mender/authtentoken
+	start-stop-daemon -S -q -b -m -p $PIDFILE --exec $BIN -- -daemon
+	[ $? = 0 ] && sleep 3 && echo "OK" || echo "FAIL"
+}
+
+stop() {
+	printf "Stopping mender: "
+	start-stop-daemon -K -q -p $PIDFILE
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+restart() {
+	stop
+	sleep 2
+	start
+}
+
+case "$1" in
+	start)
+		start
+	;;
+	stop)
+		stop
+	;;
+	restart|reload)
+		restart
+	;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
